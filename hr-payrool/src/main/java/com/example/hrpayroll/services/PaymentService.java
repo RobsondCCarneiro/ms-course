@@ -1,13 +1,9 @@
 package com.example.hrpayroll.services;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
+import com.example.hrpayroll.WorkerFeignClient;
 import com.example.hrpayroll.entities.Payment;
 import com.example.hrpayroll.entities.Worker;
 
@@ -20,18 +16,25 @@ public class PaymentService {
 	 * dentro de application.properties pegando a porta do outro programa
 	 * para linkar com este.
 	 */
-	@Value("${hr-worker.host}")
-	private String workerHost;
+	
+	//Como foi criado a variável workerFeignClient, este trecho ficou inutil
+	/*@Value("${hr-worker.host}")
+	private String workerHost;*/
 	
 	@Autowired
-	private RestTemplate restTemplate;
+	private WorkerFeignClient workerFeignClient;
+	
+	/*@Autowired
+	private RestTemplate restTemplate;*/
 
 	public Payment getPayment(long workerId, int days) {
-		Map<String, String> uriVariables = new HashMap<>();
 		
+		//Como nao eh mais uma requisicao com o RestTemplate, este trecho eh desnecessario.
+		/*Map<String, String> uriVariables = new HashMap<>();
 		uriVariables.put("id", ""+workerId);
 		
-		Worker worker = restTemplate.getForObject(workerHost + "/workers/{id}", Worker.class, uriVariables);
+		Worker worker = restTemplate.getForObject(workerHost + "/workers/{id}", Worker.class, uriVariables);*/
+		Worker worker = workerFeignClient.findById(workerId).getBody();
 		return new Payment(worker.getName(), worker.getDailyIncome(), days);
 	}
 }
