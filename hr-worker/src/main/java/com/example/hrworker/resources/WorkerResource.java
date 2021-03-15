@@ -41,12 +41,12 @@ public class WorkerResource {
 	@GetMapping(value= "/{id}")
 	public ResponseEntity<Worker> findById(@PathVariable Long id){
 		//Simulando a espera para dar timeout no servidor.
-		/*try {
+		try {
 			Thread.sleep(3000L);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		/*Quando for fazer a requisicao por id, o logger.info serve para imprimir
 		 * a mensagem de informacao da aplicacao 
