@@ -26,7 +26,7 @@ public class HrUserApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		//Gerando um possível bcrypt para a senha 123456, já que usa o hash que pode mudar com a mesma String
-		System.out.println("BCRYPT = " + passwordEncoder.encode("123456"));
+		//System.out.println("BCRYPT = " + passwordEncoder.encode("123456"));
 	}
 
 }
